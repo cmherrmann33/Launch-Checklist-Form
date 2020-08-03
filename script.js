@@ -62,19 +62,19 @@ window.addEventListener("submit", function() {
       faultyItems.style.visibility = "visible";
       fuelStatus.innerHTML = "Fuel amount too low for takeoff";
       launchStatus.innerHTML = "Shuttle not ready for launch";
-      launchStatus.style.color = red;
+      launchStatus.style.color = "red";
    } 
 
    if (Number(cargoMass.value) > 10000) {
       faultyItems.style.visibility = "visible";
       cargoStatus.innerHTML = "Cargo weight too high for takeoff";
       launchStatus.innerHTML = "Shuttle not ready for launch";
-      launchStatus.style.color = red;
+      launchStatus.style.color = "red";
    }
 
    if (Number(fuelLevel.value) >= 10000 && Number(cargoMass.value) <= 10000) {
       launchStatus.innerHTML = "Shuttle is ready for launch";
-      launchStatus.style.color = green;
+      launchStatus.style.color = "green";
    }
 
 });
