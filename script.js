@@ -14,6 +14,7 @@
 
 window.addEventListener("submit", function() {
    let form = document.querySelector("form")
+   event.preventDefault();
 
    let pilotName = document.querySelector("input[name=pilotName]");
    let copilotName = document.querySelector("input[name=copilotName");
@@ -30,7 +31,6 @@ window.addEventListener("submit", function() {
 
    if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
       alert("All fields are required.");
-      event.preventDefault();
    } else if (isNaN(Number(fuelLevel.value))) {
       alert("Fuel level must be a number and in L");
    } else if (isNaN(Number(cargoMass.value))) {
@@ -40,11 +40,23 @@ window.addEventListener("submit", function() {
       copilotStatus.innerHTML = `Copilot ${copilotName.value} cleared for launch`;
    }
 
-   if (fuelLevel.value < 10000) {
+   if (Number(fuelLevel.value) < 10000) {
       faultyItems.style.visibility = "visible";
-      fuelStatus.innerHTML = `${fuelLevel.value}kg is too low for takeoff`;
-      launchStatus.innerHTML = `Shuttle not ready for launch`;
+      fuelStatus.innerHTML = "Fuel amount too low for takeoff";
+      launchStatus.innerHTML = "Shuttle not ready for launch";
       launchStatus.style.color = red;
+   } 
+
+   if (Number(cargoMass.value) > 10000) {
+      faultyItems.style.visibility = "visible";
+      cargoStatus.innerHTML = "Cargo weight too high for takeoff";
+      launchStatus.innerHTML = "Shuttle not ready for launch";
+      launchStatus.style.color = red;
+   }
+
+   if (Number(fuelLevel.value) >= 10000 && Number(cargoMass.value) <= 10000) {
+      launchStatus.innerHTML = "Shuttle is ready for launch";
+      launchStatus.style.color = green;
    }
 
 });
