@@ -12,9 +12,27 @@
 <img src="${}">
 */
 
+let json = [];
+fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
+   response.json().then(function(json) {
+      let missionTarget = document.getElementById("missionTarget");
+
+      missionTarget.innerHTML = `
+      <h2>Mission Destination</h2>
+         <ol>
+            <li>Name: ${json[4].name}</li>
+            <li>Diameter: ${json[4].diameter}</li>
+            <li>Star: ${json[4].star}</li>
+            <li>Distance from Earth: ${json[4].distance}</li>
+            <li>Number of Moons: ${json[4].moons}</li>
+         </ol>
+      <img src="${json[4].image}">`
+   })
+})
+
 window.addEventListener("submit", function() {
    let form = document.querySelector("form")
-   event.preventDefault();
+   event.preventDefault();//previously on line 35, moved up here because items were not loading in the launchStatus div
 
    let pilotName = document.querySelector("input[name=pilotName]");
    let copilotName = document.querySelector("input[name=copilotName");
@@ -32,9 +50,9 @@ window.addEventListener("submit", function() {
    if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
       alert("All fields are required.");
    } else if (isNaN(Number(fuelLevel.value))) {
-      alert("Fuel level must be a number and in L");
+      alert("Fuel level must be a number");
    } else if (isNaN(Number(cargoMass.value))) {
-      alert("Cargo mass must be a number and in kg");
+      alert("Cargo mass must be a number");
    } else {
       pilotStatus.innerHTML = `Pilot ${pilotName.value} cleared for launch`;
       copilotStatus.innerHTML = `Copilot ${copilotName.value} cleared for launch`;
