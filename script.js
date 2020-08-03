@@ -19,22 +19,22 @@ window.addEventListener("submit", function() {
    let copilotName = document.querySelector("input[name=copilotName");
    let fuelLevel = document.querySelector("input[name=fuelLevel");
    let cargoMass = document.querySelector("input[name=cargoMass");
+   let pilotStatus = document.getElementById("pilotStatus");
+   let copilotStatus = document.getElementById("copilotStatus");
+
 
    if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
       alert("All fields are required.");
       event.preventDefault();
    } else if (isNaN(Number(fuelLevel.value))) {
       alert("Fuel level must be a number and in L");
+      event.preventDefault();
    } else if (isNaN(Number(cargoMass.value))) {
-      alert("Cargo mass must be a number and in kg")
+      alert("Cargo mass must be a number and in kg");
+      event.preventDefault();
+   } else {
+      pilotStatus.innerText = `Pilot ${pilotName.value} ready for launch.`;
+      copilotStatus.innerText = `Copilot ${copilotName.value} ready for launch.`;
+      setVisibility(fuelLevel, cargoMass);
    }
-});
-
-
-window.addEventListener("load", function() {
-   let pilotForm = document.querySelector("form");
-   pilotForm.addEventListener("submit", function(event) {
-      let pilotNameInput = document.querySelector("input[name=pilotName");
-      alert("Pilot Name: " + pilotNameInput.value);
-   });
 });
